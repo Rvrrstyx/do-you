@@ -3,32 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Do You Love Me?</title>
+    <title>Andu, Do You Love Me?</title>
     <style>
         body {
             text-align: center;
-            background-color: #ffe6f2;
+            background-color: #b3e0ff;
             font-family: Arial, sans-serif;
         }
         .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin-top: 50px;
-            position: relative;
         }
         .chibi {
             width: 200px;
         }
         .speech-bubble {
-            position: absolute;
-            top: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 220px;
+            width: 250px;
         }
         .buttons {
             margin-top: 20px;
         }
         button {
-            background-color: #ff80bf;
+            background-color: #80aaff;
             border: none;
             padding: 10px 20px;
             margin: 5px;
@@ -38,36 +36,59 @@
             color: white;
         }
         button:hover {
-            background-color: #ff4d94;
+            background-color: #4d94ff;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="websticker1.png" id="chibiImage" class="chibi">
-        <img src="speechbubble2.png" id="speechBubble" class="speech-bubble">
+        <h1 id="question">Andu, do you love me?</h1>
+        <div>
+            <img src="websticker1.png" id="chibiImage" class="chibi">
+            <img src="speech bubble 1.png" id="speechBubble" class="speech-bubble">
+        </div>
     </div>
-    <h1>Do you love me?</h1>
     <div class="buttons">
         <button onclick="showResponse('yes')">Yes</button>
         <button onclick="showResponse('no')">No</button>
-        <button onclick="showResponse('maybe')">Maybe</button>
     </div>
     <script>
+        let yesCounter = 0;
+        let noCounter = 0;
+
         function showResponse(response) {
             let chibi = document.getElementById("chibiImage");
             let speech = document.getElementById("speechBubble");
+            let question = document.getElementById("question");
 
             if (response === 'yes') {
-                chibi.src = "websticker2.png";
-                speech.src = "speechbubble3.png";
-                launchConfetti();
-            } else if (response === 'no') {
-                chibi.src = "websticker3.png";
-                speech.src = "speechbubble4.png";
-            } else {
-                chibi.src = "websticker4.png";
-                speech.src = "speechbubble5.png";
+                yesCounter++;
+                noCounter = 0;
+                
+                if (yesCounter === 1) {
+                    chibi.src = "websticker2.png";
+                    speech.src = "speechbubble3.png";
+                    question.innerText = "I love you more!!!";
+                    launchConfetti();
+                } else {
+                    chibi.src = yesCounter % 2 === 0 ? "websticker5.png" : "websticker2.png";
+                    speech.src = "speechbubble5.png";
+                    question.innerText = "I miss youuuu";
+                }
+            }
+            else if (response === 'no') {
+                noCounter++;
+                yesCounter = 0;
+                
+                if (noCounter === 1) {
+                    chibi.src = "websticker3.png";
+                    speech.src = "speechbubble4.png";
+                    question.innerText = "...are you sure?";
+                } else {
+                    chibi.src = "websticker4.png";
+                    speech.src = "speechbubble6.png";
+                    question.innerText = "hey, I think you clicked the wrong button...";
+                }
             }
         }
 
@@ -80,7 +101,7 @@
                 confetti.style.top = "-10px";
                 confetti.style.width = "10px";
                 confetti.style.height = "10px";
-                confetti.style.background = "#ff80bf";
+                confetti.style.background = "#80aaff";
                 confetti.style.opacity = Math.random();
                 confetti.style.animation = `falling ${Math.random() * 2 + 3}s linear infinite`;
                 document.body.appendChild(confetti);
