@@ -16,19 +16,22 @@
             justify-content: center;
             align-items: center;
             margin-top: 50px;
+            position: relative;
         }
         .chibi {
             width: 200px;
             order: 2;
+            margin-left: 20px;
         }
         .speech-bubble {
             width: 250px;
-            margin-right: 20px;
             order: 1;
         }
         .text-above {
             position: absolute;
-            top: 50px;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 24px;
             font-weight: bold;
             width: 100%;
@@ -56,8 +59,8 @@
     </style>
 </head>
 <body>
-    <div class="text-above" id="question">Andu, do you love me?</div>
     <div class="container">
+        <div class="text-above" id="question">Andu, do you love me?</div>
         <img src="speech bubble 1.png" id="speechBubble" class="speech-bubble">
         <img src="websticker1.png" id="chibiImage" class="chibi">
     </div>
@@ -68,6 +71,7 @@
     <script>
         let yesCounter = 0;
         let noCounter = 0;
+        let switchedBack = false;
 
         function showResponse(response) {
             let chibi = document.getElementById("chibiImage");
@@ -77,6 +81,7 @@
             if (response === 'yes') {
                 yesCounter++;
                 noCounter = 0;
+                switchedBack = false;
                 
                 if (yesCounter === 1) {
                     chibi.src = "websticker2.png";
@@ -106,6 +111,14 @@
                     speech.src = "speechbubble6.png";
                     question.innerText = "hey, I think you clicked the wrong button...";
                 }
+            }
+
+            // If Yes is clicked after No, show "That's better!"
+            if (response === 'yes' && noCounter > 0 && !switchedBack) {
+                chibi.src = "websticker6.png";
+                speech.src = "speechbubble3.png";
+                question.innerText = "That's better!";
+                switchedBack = true;
             }
         }
 
