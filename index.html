@@ -91,11 +91,11 @@
                 noCounter = 0;
                 switchedBack = false;
                 
-                if (yesCounter === 1) {
+                if (yesCounter % 2 === 1) {
                     chibi.src = "websticker 2.png";
                     question.innerText = "I love you more!!!";
                 } else {
-                    chibi.src = yesCounter % 2 === 0 ? "websticker5.png" : "websticker2.png";
+                    chibi.src = "websticker5.png";
                     question.innerText = "I miss youuuu";
                 }
                 launchConfetti();
