@@ -6,13 +6,19 @@
     <title>Andu, Do You Love Me?</title>
     <style>
         @font-face {
-            font-family: 'PixelFont';
-            src: url('pixel-font.ttf') format('truetype');
-        }
+    font-family: 'PixelifySans';
+    src: url('PixelifySans-Regular.ttf') format('truetype');
+}
+
+body {
+    font-family: 'PixelifySans', Arial, sans-serif;
+}
+
+        
         body {
             text-align: center;
             background-color: #b3e0ff;
-            font-family: 'PixelFont', Arial, sans-serif;
+            font-family: 'Press Start 2P', Arial, sans-serif;
             color: #003366;
         }
         .main-container {
@@ -34,7 +40,7 @@
             border: 3px solid #4d94ff;
             border-radius: 20px;
             padding: 15px 25px;
-            font-size: 24px;
+            font-size: 16px;
             font-weight: bold;
             margin-bottom: 20px;
         }
@@ -51,7 +57,7 @@
             border: none;
             padding: 10px 20px;
             margin: 5px;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
             border-radius: 10px;
             color: white;
@@ -126,10 +132,12 @@
                 } else {
                     chibi.src = "websticker4.png";
                     question.innerText = "hey, I think you clicked the wrong button...";
+                    noButton.style.position = "absolute";
                     noButton.style.animation = "moveAround 0.5s infinite alternate";
                     setTimeout(() => {
                         noButton.innerText = "Yes";
                         noButton.style.animation = "none";
+                        noButton.onclick = () => showResponse('yes');
                     }, 5000);
                 }
             }
