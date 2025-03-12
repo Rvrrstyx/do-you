@@ -44,8 +44,8 @@
 </head>
 <body>
     <div class="container">
-        <img src="chibi_default.png" id="chibiImage" class="chibi">
-        <img src="speech_default.png" id="speechBubble" class="speech-bubble">
+        <img src="websticker1.png" id="chibiImage" class="chibi">
+        <img src="speechbubble2.png" id="speechBubble" class="speech-bubble">
     </div>
     <h1>Do you love me?</h1>
     <div class="buttons">
@@ -59,15 +59,15 @@
             let speech = document.getElementById("speechBubble");
 
             if (response === 'yes') {
-                chibi.src = "happy_chibi.png";
-                speech.src = "speech_yes.png";
+                chibi.src = "websticker2.png";
+                speech.src = "speechbubble3.png";
                 launchConfetti();
             } else if (response === 'no') {
-                chibi.src = "sad_chibi.png";
-                speech.src = "speech_no.png";
+                chibi.src = "websticker3.png";
+                speech.src = "speechbubble4.png";
             } else {
-                chibi.src = "confused_chibi.png";
-                speech.src = "speech_maybe.png";
+                chibi.src = "websticker4.png";
+                speech.src = "speechbubble5.png";
             }
         }
 
@@ -90,4 +90,3 @@
     </script>
 </body>
 </html>
-
