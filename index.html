@@ -18,11 +18,6 @@
             margin-top: 50px;
             position: relative;
         }
-        .chibi {
-            width: 200px;
-            order: 2;
-            margin-left: 20px;
-        }
         .speech-bubble {
             width: 250px;
             order: 1;
@@ -30,18 +25,23 @@
         }
         .speech-bubble .text {
             position: absolute;
-            top: 50%;
+            top: -30px;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             font-size: 18px;
             font-weight: bold;
             color: black;
+        }
+        .chibi {
+            width: 200px;
+            order: 2;
+            margin-left: 20px;
         }
         .buttons {
             margin-top: 20px;
         }
         button {
-            background-color: #80aaff;
+            background-color: #4d94ff;
             border: none;
             padding: 10px 20px;
             margin: 5px;
@@ -51,7 +51,7 @@
             color: white;
         }
         button:hover {
-            background-color: #4d94ff;
+            background-color: #2f6bff;
         }
         @keyframes falling {
             from { transform: translateY(0); opacity: 1; }
@@ -85,7 +85,7 @@
                 yesCounter++;
                 noCounter = 0;
                 switchedBack = false;
-                
+
                 if (yesCounter === 1) {
                     chibi.src = "websticker2.png";
                     speech.src = "speechbubble3.png";
@@ -97,14 +97,13 @@
                     question.innerText = "I miss youuuu";
                 } else {
                     chibi.src = yesCounter % 2 === 0 ? "websticker5.png" : "websticker2.png";
-                    speech.src = "speechbubble5.png";
+                    speech.src = yesCounter % 2 === 0 ? "speechbubble5.png" : "speechbubble3.png";
                     question.innerText = "I miss youuuu";
                 }
-            }
-            else if (response === 'no') {
+            } else if (response === 'no') {
                 noCounter++;
                 yesCounter = 0;
-                
+
                 if (noCounter === 1) {
                     chibi.src = "websticker3.png";
                     speech.src = "speechbubble4.png";
@@ -134,7 +133,7 @@
                 confetti.style.top = "-10px";
                 confetti.style.width = "10px";
                 confetti.style.height = "10px";
-                confetti.style.background = "#80aaff";
+                confetti.style.background = "#4d94ff";
                 confetti.style.opacity = Math.random();
                 confetti.style.animation = `falling ${Math.random() * 2 + 3}s linear`;
                 document.body.appendChild(confetti);
