@@ -10,8 +10,20 @@
             background-color: #b3e0ff;
             font-family: Arial, sans-serif;
         }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #99ccff;
+            border: 5px solid #4d94ff;
+            border-radius: 25px;
+            padding: 30px;
+            max-width: 400px;
+            margin: 50px auto;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+        }
         .text-box {
-            display: inline-block;
             background-color: #99ccff;
             border: 3px solid #4d94ff;
             border-radius: 20px;
@@ -20,12 +32,6 @@
             font-weight: bold;
             color: black;
             margin-bottom: 20px;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
         .chibi {
             width: 200px;
@@ -54,7 +60,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="main-container">
         <div class="text-box" id="question">Andu, do you love me?</div>
         <img src="websticker1.png" id="chibiImage" class="chibi">
         <div class="buttons">
@@ -73,24 +79,31 @@
 
             if (response === 'yes') {
                 yesCounter++;
+                
+                if (noCounter > 0 && !switchedBack) {
+                    chibi.src = "websticker6.png";
+                    question.innerText = "That's better!";
+                    switchedBack = true;
+                    launchConfetti();
+                    return;
+                }
+                
                 noCounter = 0;
                 switchedBack = false;
                 
                 if (yesCounter === 1) {
                     chibi.src = "websticker 2.png";
                     question.innerText = "I love you more!!!";
-                    launchConfetti();
-                } else if (yesCounter === 2) {
-                    chibi.src = "websticker5.png";
-                    question.innerText = "I miss youuuu";
                 } else {
                     chibi.src = yesCounter % 2 === 0 ? "websticker5.png" : "websticker2.png";
                     question.innerText = "I miss youuuu";
                 }
+                launchConfetti();
             }
             else if (response === 'no') {
                 noCounter++;
                 yesCounter = 0;
+                switchedBack = false;
                 
                 if (noCounter === 1) {
                     chibi.src = "websticker3.png";
@@ -99,12 +112,6 @@
                     chibi.src = "websticker4.png";
                     question.innerText = "hey, I think you clicked the wrong button...";
                 }
-            }
-
-            if (response === 'yes' && noCounter > 0 && !switchedBack) {
-                chibi.src = "websticker6.png";
-                question.innerText = "That's better!";
-                switchedBack = true;
             }
         }
 
