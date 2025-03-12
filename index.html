@@ -12,15 +12,26 @@
         }
         .container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: center;
             align-items: center;
             margin-top: 50px;
         }
         .chibi {
             width: 200px;
+            order: 2;
         }
         .speech-bubble {
             width: 250px;
+            margin-right: 20px;
+            order: 1;
+        }
+        .text-above {
+            position: absolute;
+            top: 50px;
+            font-size: 24px;
+            font-weight: bold;
+            width: 100%;
         }
         .buttons {
             margin-top: 20px;
@@ -38,15 +49,17 @@
         button:hover {
             background-color: #4d94ff;
         }
+        @keyframes falling {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(100vh); opacity: 0; }
+        }
     </style>
 </head>
 <body>
+    <div class="text-above" id="question">Andu, do you love me?</div>
     <div class="container">
-        <h1 id="question">Andu, do you love me?</h1>
-        <div>
-            <img src="websticker1.png" id="chibiImage" class="chibi">
-            <img src="speech bubble 1.png" id="speechBubble" class="speech-bubble">
-        </div>
+        <img src="speech bubble 1.png" id="speechBubble" class="speech-bubble">
+        <img src="websticker1.png" id="chibiImage" class="chibi">
     </div>
     <div class="buttons">
         <button onclick="showResponse('yes')">Yes</button>
@@ -70,6 +83,10 @@
                     speech.src = "speechbubble3.png";
                     question.innerText = "I love you more!!!";
                     launchConfetti();
+                } else if (yesCounter === 2) {
+                    chibi.src = "websticker5.png";
+                    speech.src = "speechbubble5.png";
+                    question.innerText = "I miss youuuu";
                 } else {
                     chibi.src = yesCounter % 2 === 0 ? "websticker5.png" : "websticker2.png";
                     speech.src = "speechbubble5.png";
@@ -103,7 +120,7 @@
                 confetti.style.height = "10px";
                 confetti.style.background = "#80aaff";
                 confetti.style.opacity = Math.random();
-                confetti.style.animation = `falling ${Math.random() * 2 + 3}s linear infinite`;
+                confetti.style.animation = `falling ${Math.random() * 2 + 3}s linear`;
                 document.body.appendChild(confetti);
                 setTimeout(() => confetti.remove(), 3000);
             }
