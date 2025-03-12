@@ -6,13 +6,13 @@
     <title>Andu, Do You Love Me?</title>
     <style>
         @font-face {
-            font-family: 'CustomFont';
-            src: url('fl-720-34-333333.png') format('truetype');
+            font-family: 'PixelFont';
+            src: url('pixel-font.ttf') format('truetype');
         }
         body {
             text-align: center;
             background-color: #b3e0ff;
-            font-family: 'CustomFont', Arial, sans-serif;
+            font-family: 'PixelFont', Arial, sans-serif;
             color: #003366;
         }
         .main-container {
@@ -27,6 +27,7 @@
             max-width: 400px;
             margin: 50px auto;
             box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
         .text-box {
             background-color: #99ccff;
@@ -43,6 +44,7 @@
         }
         .buttons {
             margin-top: 10px;
+            position: relative;
         }
         button {
             background-color: #80aaff;
@@ -53,6 +55,7 @@
             cursor: pointer;
             border-radius: 10px;
             color: white;
+            position: relative;
         }
         button:hover {
             background-color: #4d94ff;
@@ -61,6 +64,13 @@
             from { transform: translateY(0); opacity: 1; }
             to { transform: translateY(100vh); opacity: 0; }
         }
+        @keyframes moveAround {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(50px, -20px); }
+            50% { transform: translate(-50px, 30px); }
+            75% { transform: translate(30px, -50px); }
+            100% { transform: translate(0, 0); }
+        }
     </style>
 </head>
 <body>
@@ -68,14 +78,15 @@
         <div class="text-box" id="question">Andu, do you love me?</div>
         <img src="websticker1.png" id="chibiImage" class="chibi">
         <div class="buttons">
-            <button onclick="showResponse('yes')">Yes</button>
-            <button onclick="showResponse('no')">No</button>
+            <button id="yesButton" onclick="showResponse('yes')">Yes</button>
+            <button id="noButton" onclick="showResponse('no')">No</button>
         </div>
     </div>
     <script>
         let yesCounter = 0;
         let noCounter = 0;
         let switchedBack = false;
+        let noButton = document.getElementById("noButton");
 
         function showResponse(response) {
             let chibi = document.getElementById("chibiImage");
@@ -96,7 +107,7 @@
                 switchedBack = false;
                 
                 if (yesCounter % 2 === 1) {
-                    chibi.src = "websticker 2.png";
+                    chibi.src = "websticker2.png";
                     question.innerText = "I love you more!!!";
                 } else {
                     chibi.src = "websticker5.png";
@@ -115,6 +126,11 @@
                 } else {
                     chibi.src = "websticker4.png";
                     question.innerText = "hey, I think you clicked the wrong button...";
+                    noButton.style.animation = "moveAround 0.5s infinite alternate";
+                    setTimeout(() => {
+                        noButton.innerText = "Yes";
+                        noButton.style.animation = "none";
+                    }, 5000);
                 }
             }
         }
