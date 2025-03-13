@@ -62,23 +62,6 @@
         button:hover {
             background-color: #4d94ff;
         }
-        .music-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        .music-icon {
-            width: 50px;
-            height: 50px;
-            margin-bottom: 10px;
-        }
-        .music-text {
-            font-size: 14px;
-            color: white;
-            font-family: 'PixelifySans', Arial, sans-serif !important;
-        }
     </style>
 </head>
 <body>
@@ -90,19 +73,63 @@
             <button id="noButton" onclick="showResponse('no')">No</button>
         </div>
     </div>
-    <div class="music-container">
-        <img src="musical-notes.gif" class="music-icon">
-        <span class="music-text">Now Playing...</span>
-        <audio id="bgMusic" loop>
-            <source src="VIDEOCLUB - ROI INSTRUMENTAL ( paroles letra) FREE DOWNLOAD IN DESCRIPTION-[AudioTrimmer.com].mp3" type="audio/mpeg">
-        </audio>
-    </div>
     <script>
-        window.onload = function() {
-            let bgMusic = document.getElementById('bgMusic');
-            bgMusic.volume = 0.5;
-            bgMusic.play().catch(error => console.log("Autoplay blocked: " + error));
-        };
+        let yesCounter = 0;
+        let noCounter = 0;
+        let switchedBack = false;
+        let noButton = document.getElementById("noButton");
+        let yesButton = document.getElementById("yesButton");
+
+        function showResponse(response) {
+            let chibi = document.getElementById("chibiImage");
+            let question = document.getElementById("question");
+
+            if (response === 'yes') {
+                yesCounter++;
+                if (noCounter > 0 && !switchedBack) {
+                    chibi.src = "websticker6.png";
+                    question.innerText = "That's better!";
+                    switchedBack = true;
+                    noButton.style.animation = "none";
+                    return;
+                }
+                
+                noCounter = 0;
+                switchedBack = false;
+                
+                if (yesCounter % 3 === 1) {
+                    chibi.src = "websticker 2.png";
+                    question.innerText = "I love you more!!!";
+                } else if (yesCounter % 3 === 2) {
+                    chibi.src = "websticker5.png";
+                    question.innerText = "I miss youuuu </3";
+                } else {
+                    chibi.src = "websticker7.png";
+                    question.innerText = "Please wait for me!!!";
+                }
+            }
+            else if (response === 'no') {
+                noCounter++;
+                yesCounter = 0;
+                switchedBack = false;
+                
+                if (noCounter === 1) {
+                    chibi.src = "websticker3.png";
+                    question.innerText = "...are you sure?";
+                } else {
+                    chibi.src = "webstickerworried.png";
+                    question.innerText = "hey, I think you clicked the wrong button...";
+                    noButton.style.position = "absolute";
+                    noButton.style.left = Math.random() * (document.querySelector('.main-container').clientWidth - noButton.clientWidth) + 'px';
+                    noButton.style.top = Math.random() * (document.querySelector('.main-container').clientHeight - noButton.clientHeight) + 'px';
+                }
+                
+                if (noCounter >= 5) {
+                    noButton.style.display = 'none';
+                    yesButton.style.margin = 'auto';
+                }
+            }
+        }
     </script>
 </body>
 </html>
