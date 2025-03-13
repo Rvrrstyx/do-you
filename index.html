@@ -62,13 +62,36 @@
         button:hover {
             background-color: #4d94ff;
         }
+            .music-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .music-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .music-text {
+            font-size: 14px;
+            color: white;
+            font-family: 'PixelifySans', Arial, sans-serif !important;
+        }
     </style>
 </head>
 <body>
     <div class="main-container">
         <div class="text-box" id="question">Andu, do you love me?</div>
         <img src="websticker1.png" id="chibiImage" class="chibi">
-        <div class="buttons">
+        <div class="music-container">
+        <img src="musical-notes.gif" class="music-icon">
+        <span class="music-text">Now Playing...</span>
+        <audio id="bgMusic" loop>
+            <source src="VIDEOCLUB - ROI INSTRUMENTAL ( paroles letra) FREE DOWNLOAD IN DESCRIPTION-[AudioTrimmer.com].mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    <div class="buttons">
             <button id="yesButton" onclick="showResponse('yes')">Yes</button>
             <button id="noButton" onclick="showResponse('no')">No</button>
         </div>
@@ -121,8 +144,8 @@
                     chibi.src = "webstickerworried.png";
                     question.innerText = "hey, I think you clicked the wrong button...";
                     noButton.style.position = "absolute";
-                    noButton.style.left = Math.random() * 250 + 'px';
-                    noButton.style.top = Math.random() * 150 + 'px';
+                    noButton.style.left = Math.random() * (document.querySelector('.main-container').clientWidth - noButton.clientWidth) + 'px';
+                    noButton.style.top = Math.random() * (document.querySelector('.main-container').clientHeight - noButton.clientHeight) + 'px';
                 }
                 
                 if (noCounter >= 5) {
@@ -148,6 +171,13 @@
                 setTimeout(() => confetti.remove(), 3000);
             }
         }
+    </script>
+    <script>
+        window.onload = function() {
+            let bgMusic = document.getElementById('bgMusic');
+            bgMusic.volume = 0.5;
+            bgMusic.play();
+        };
     </script>
 </body>
 </html>
