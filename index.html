@@ -62,16 +62,17 @@
         button:hover {
             background-color: #4d94ff;
         }
-            .music-container {
+        .music-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             margin-top: 15px;
         }
         .music-icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
         }
         .music-text {
             font-size: 14px;
@@ -84,99 +85,23 @@
     <div class="main-container">
         <div class="text-box" id="question">Andu, do you love me?</div>
         <img src="websticker1.png" id="chibiImage" class="chibi">
-        <div class="music-container">
+        <div class="buttons">
+            <button id="yesButton" onclick="showResponse('yes')">Yes</button>
+            <button id="noButton" onclick="showResponse('no')">No</button>
+        </div>
+    </div>
+    <div class="music-container">
         <img src="musical-notes.gif" class="music-icon">
         <span class="music-text">Now Playing...</span>
         <audio id="bgMusic" loop>
             <source src="VIDEOCLUB - ROI INSTRUMENTAL ( paroles letra) FREE DOWNLOAD IN DESCRIPTION-[AudioTrimmer.com].mp3" type="audio/mpeg">
         </audio>
     </div>
-    <div class="buttons">
-            <button id="yesButton" onclick="showResponse('yes')">Yes</button>
-            <button id="noButton" onclick="showResponse('no')">No</button>
-        </div>
-    </div>
-    <script>
-        let yesCounter = 0;
-        let noCounter = 0;
-        let switchedBack = false;
-        let noButton = document.getElementById("noButton");
-        let yesButton = document.getElementById("yesButton");
-
-        function showResponse(response) {
-            let chibi = document.getElementById("chibiImage");
-            let question = document.getElementById("question");
-
-            if (response === 'yes') {
-                yesCounter++;
-                if (noCounter > 0 && !switchedBack) {
-                    chibi.src = "websticker6.png";
-                    question.innerText = "That's better!";
-                    switchedBack = true;
-                    noButton.style.animation = "none";
-                    return;
-                }
-                
-                noCounter = 0;
-                switchedBack = false;
-                
-                if (yesCounter % 3 === 1) {
-                    chibi.src = "websticker 2.png";
-                    question.innerText = "I love you more!!!";
-                } else if (yesCounter % 3 === 2) {
-                    chibi.src = "websticker5.png";
-                    question.innerText = "I miss youuuu </3";
-                } else {
-                    chibi.src = "websticker7.png";
-                    question.innerText = "Please wait for me!!!";
-                }
-                launchConfetti();
-            }
-            else if (response === 'no') {
-                noCounter++;
-                yesCounter = 0;
-                switchedBack = false;
-                
-                if (noCounter === 1) {
-                    chibi.src = "websticker3.png";
-                    question.innerText = "...are you sure?";
-                } else {
-                    chibi.src = "webstickerworried.png";
-                    question.innerText = "hey, I think you clicked the wrong button...";
-                    noButton.style.position = "absolute";
-                    noButton.style.left = Math.random() * (document.querySelector('.main-container').clientWidth - noButton.clientWidth) + 'px';
-                    noButton.style.top = Math.random() * (document.querySelector('.main-container').clientHeight - noButton.clientHeight) + 'px';
-                }
-                
-                if (noCounter >= 5) {
-                    noButton.style.display = 'none';
-                    yesButton.style.margin = 'auto';
-                }
-            }
-        }
-        
-        function launchConfetti() {
-            const confettiCount = 50;
-            for (let i = 0; i < confettiCount; i++) {
-                let confetti = document.createElement("div");
-                confetti.style.position = "fixed";
-                confetti.style.left = Math.random() * 100 + "vw";
-                confetti.style.top = "-10px";
-                confetti.style.width = "10px";
-                confetti.style.height = "10px";
-                confetti.style.background = "#80aaff";
-                confetti.style.opacity = Math.random();
-                confetti.style.animation = `falling ${Math.random() * 2 + 3}s linear`;
-                document.body.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 3000);
-            }
-        }
-    </script>
     <script>
         window.onload = function() {
             let bgMusic = document.getElementById('bgMusic');
             bgMusic.volume = 0.5;
-            bgMusic.play();
+            bgMusic.play().catch(error => console.log("Autoplay blocked: " + error));
         };
     </script>
 </body>
