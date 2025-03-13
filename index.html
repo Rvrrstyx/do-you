@@ -116,11 +116,11 @@
                 switchedBack = false;
                 
                 if (yesCounter % 2 === 1) {
-                    chibi.src = "websticker 2.png";
-                    question.innerText = "I love you more!!!";
+                    chibi.src = yesCounter % 3 === 1 ? "websticker 2.png" : (yesCounter % 3 === 2 ? "websticker5.png" : "websticker7.png");
+                    question.innerText = yesCounter % 3 === 1 ? "I love you more!!!" : (yesCounter % 3 === 2 ? "I miss youuuu </3" : "Please wait for me!!!");
                 } else {
                     chibi.src = "websticker5.png";
-                    question.innerText = "I miss youuuu </3";
+                    question.innerText = "I miss youuuu";
                 }
                 launchConfetti();
             }
@@ -133,12 +133,15 @@
                     chibi.src = "websticker3.png";
                     question.innerText = "...are you sure?";
                 } else {
-                    chibi.src = "websticker4.png";
+                    chibi.src = "webstickerworried.png";
                     question.innerText = "hey, I think you clicked the wrong button...";
                     noButton.style.position = "absolute";
-                    noButton.style.animation = "moveAround 0.5s infinite alternate";
-                    setTimeout(() => {
-                        noButton.innerText = "Yes";
+                    noButton.style.left = Math.random() * 250 + 'px';
+                    noButton.style.top = Math.random() * 150 + 'px';
+                    if (noCounter >= 5) {
+                        noButton.style.display = 'none';
+                        yesButton.style.margin = 'auto';
+                    }
                         noButton.style.animation = "none";
                         noButton.onclick = () => showResponse('yes');
                     }, 5000);
